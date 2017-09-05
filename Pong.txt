@@ -1,0 +1,87 @@
+var paddleY;
+var paddleLength;
+var ballX;
+var ballY;
+
+var deltaX;
+var deltaY;
+
+var points;
+var ballLength;
+
+function setup() { 
+  createCanvas(650, 400);
+  paddleY = 150;
+  paddleLength = 80;
+  ballX = 325;
+  ballY = 180;
+  deltaX = -5;
+  deltaY = 0;
+  ballLength = 16;
+	points = 0;
+	removeElements();
+} 
+
+function draw() { 
+	if (ballX < 0 || ballX > 650) {
+		gameOver();
+	} else {
+		background(0);
+		Paddle();
+		Ball();
+		MovePaddle();
+		MoveBall();
+		fill(255);
+		textSize(90);
+		text(points, 10, 70);
+	}
+}
+
+function gameOver() {
+  background(0);
+  fill(255, 0, 0);
+  textAlign(CENTER);
+  textSize(100);
+  text("Game Over!", 330, 130);
+	textSize(50);
+	text("Your score is: " + points, 330, 190);
+  button = createButton('Try Again?');
+  button.position(300, 250);
+  button.mousePressed(setup);
+}
+
+function Paddle() {
+   rect(30, paddleY, 20, paddleLength);
+   rect(600, paddleY, 20, paddleLength);
+}
+
+function Ball() {
+  rect(ballX, ballY, ballLength, ballLength);
+}
+
+function MovePaddle() {
+	/*
+	 if(keyIsDown(UP_ARROW) && paddleY > 0) {
+			paddleY -= 3; 
+	 } else if(keyIsDown(DOWN_ARROW) && paddleY < 320) {
+			paddleY += 3; 
+	 }*/
+	paddleY = pmouseY;
+	if (paddleY < 0) {
+		paddleY = 0;
+	} else if (paddleY > 400 - paddleLength) {
+		paddleY = 400 - paddleLength;
+	}
+}
+
+function MoveBall() {
+	if (((ballX < 50) || ((ballX + ballLength > 600)) && (ballX + ballLength < 697)) && ballY < (paddleLength + paddleY) && ballY + ballLength > paddleY) {
+    deltaX = (-1 * deltaX / abs(deltaX)) * (abs(deltaX) + 0.5);
+		deltaY = random(-5, 5);
+		points++;
+  } else if (ballY < 0 || ballY + ballLength > 400) {
+		deltaY *= -1;	
+	}
+  ballX += deltaX;
+  ballY += deltaY;
+}

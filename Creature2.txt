@@ -1,0 +1,124 @@
+/*
+ * @name Simple Shapes
+ * @description This examples includes a circle, square, triangle, and a flower.
+ */
+var x = 450;
+var y = 200;
+var bgColor = 255;
+
+function setup() {
+  // Create the canvas
+  createCanvas(700, 500);
+}
+
+function draw() {
+	background(0, 0, 255);
+	Clouds(50, 50);
+	hill(-100, 600, 400, 500);
+	hill(100, 600, 700, 600);
+	hill(0, 600, 600, 400);
+	//translate(mouseX-100, mouseY-100);
+	
+	Ears();
+	Legs();
+	Body();
+	Hands();
+	Arms();
+	Head();
+	Eyes()
+}
+
+function Ears() {
+	noStroke();
+	//left brown ear
+	fill(bgColor);
+	ellipse(x-40, y-40, 30, 60);
+	//right brown ear
+	ellipse(x+40, y-40, 30, 60);
+}
+
+function Legs() {
+	fill(bgColor);
+	//left leg
+	ellipse(x-20, y+90, 20, 60);
+	//right leg
+	ellipse(x+20, y+90, 20, 60);
+}
+
+function Body() {
+	//teal lower body
+	fill(0, 128, 128);
+	triangle(x, y, x-40, y+90, x+40, y+90);
+	//teal upper body
+	rect(x-10, y-30, 20, 70);
+}
+
+function Hands() {
+	//brown right hand
+	fill(bgColor);
+	ellipse(x+60, y+9, 30, 30);
+	//left hand
+	ellipse(x-60, y+9, 30, 30);
+}
+
+function Arms() {
+	//left white arm
+	fill(0, 128, 128);	
+	rect(x-50, y, 40, 20);
+	//right white arm
+	rect(x+10, y, 40, 20);
+}
+
+function Eyes() {
+	//left eye
+	fill(255, 255, 255);
+	ellipse(x-20, y-80, 20, 20);
+	//right eye
+	ellipse(x+20, y-80, 20, 20);
+	//left black pupil
+	fill(0, 0, 0);
+	ellipse(x-20, y-77, 15, 15);
+	//right black pupil
+	ellipse(x+20, y-77, 15, 15);
+	
+	//sleep
+	if(mouseIsPressed) {
+		fill(0, 0, 0);
+		ellipse(x-20, y-80, 20, 20);
+		ellipse(x+20, y-80, 20, 20);
+		
+		fill(bgColor);
+		ellipse(x-20, y-83, 20, 20);
+		ellipse(x+20, y-83, 20, 20);
+	}
+}
+
+function Head() {
+	//brown head
+	fill(bgColor);
+	ellipse(x, y-60, 120, 80); 
+	//pink mouth
+	fill(255, 192, 203);
+	noStroke();
+	triangle(x, y-50, x+10, y-40, x-10, y-40);
+}
+
+function keyPressed() {
+	if (keyIsPressed) {
+		bgColor = color(random(256), random(256), random(256));
+	}
+}
+
+function Clouds(a, b) {
+	fill(255, 255, 255);
+	ellipse(a, b, 30, 30);
+	ellipse(a+10, b-10, 30, 30);
+	ellipse(a+20, b+10, 30, 30);
+	ellipse(a+30, b-5, 30, 30);
+	ellipse(a+40, b-10, 30, 30);
+}
+
+function hill(x, y, w, h) {
+	fill(color(0, 255, 0));
+	arc(x+(w/2), y , w, h, PI, 0, PIE);
+}
